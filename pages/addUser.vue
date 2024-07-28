@@ -10,37 +10,37 @@
       </div>
     </div>
 
-    <div class="adduser">
-      <div>
-        <h2>Add user account</h2>
-        <p>Add photo and personal details here</p>
+    <form @submit.prevent="submit">
+      <div class="adduser">
+        <div>
+          <h2>Add user account</h2>
+          <p>Add photo and personal details here</p>
+        </div>
+        <div class="buttons">
+          <button class="btn-white" @click="resetForm">Reset</button>
+          <button class="btn-red" @click="submit">Add</button>
+        </div>
       </div>
-      <div class="buttons">
-        <button class="btn-white" @click="resetForm">Reset</button>
-        <button class="btn-red" @click="addUser">Add</button>
-      </div>
-    </div>
 
-    <div class="line"></div>
+      <div class="line"></div>
 
-    <div class="form">
-      <h2>Account info</h2>
+      <div class="form">
+        <h2>Account info</h2>
 
-      <form>
         <div class="content">
           <label for="">Name</label>
           <div>
-            <input v-model="firstName" type="text" name="" id="" />
-            <input v-model="lastName" type="text" name="" id="" />
+            <input v-model="firstName" type="text" name="" id="" required />
+            <input v-model="lastName" type="text" name="" id="" required />
           </div>
         </div>
         <div class="content">
           <label for="">Email Address</label>
-          <input v-model="email" type="text" name="" id="" />
+          <input v-model="email" type="text" name="" id="" required />
         </div>
         <div class="content">
           <label for="">Password</label>
-          <input v-model="password" type="text" name="" id="" />
+          <input v-model="password" type="text" name="" id="" required />
         </div>
         <div class="content">
           <label for="">Role</label>
@@ -50,8 +50,8 @@
           <label for="">Photo</label>
           <input v-model="photo" type="text" name="" id="" />
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -94,7 +94,7 @@ const ADD_USER_MUTATION = gql`
 
 const { mutate: addUserMutation, error } = useMutation(ADD_USER_MUTATION);
 
-const addUser = async () => {
+const submit = async () => {
   try {
     const response = await addUserMutation({
       name: name.value,
@@ -189,44 +189,44 @@ const resetForm = () => {
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   margin-top: 20px;
   width: 70%;
   h2 {
     font-size: 20px;
     font-weight: 600;
   }
+}
 
-  form {
+form {
+  .content {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
-    .content {
+    justify-content: space-between;
+    align-items: center;
+
+    div {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      gap: 20px;
+      width: 50%;
+    }
+    label {
+      width: 400px;
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-      div {
-        display: flex;
-        gap: 20px;
-        width: 50%;
-      }
-      label {
-        width: 400px;
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      input {
-        border: 1px solid #dddcd8;
-        box-shadow: 0px 1px 2px 0px #1018280d;
-        padding: 10px 14px 10px 14px;
-        gap: 8px;
-        border-radius: 4px;
-        width: 50%;
-      }
-      input:focus {
-        outline: none;
-      }
+    input {
+      border: 1px solid #dddcd8;
+      box-shadow: 0px 1px 2px 0px #1018280d;
+      padding: 10px 14px 10px 14px;
+      gap: 8px;
+      border-radius: 4px;
+      width: 50%;
+    }
+    input:focus {
+      outline: none;
     }
   }
 }
