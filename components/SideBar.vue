@@ -19,6 +19,14 @@
           <h3>Oliva</h3>
           <p>admin</p>
         </div>
+        <div class="log-container">
+          <Icon
+            name="ic:baseline-log-out"
+            size="30"
+            class="logout"
+            @click="logout"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -32,6 +40,12 @@ const links = [
   { name: "Rooms", class: "", icon: "ph:chats-circle", link: "/" },
   { name: "App Management", class: "", icon: "ph:note-pencil", link: "/" },
 ];
+
+const logout = () => {
+  const tokens = useCookie("accessToken");
+  tokens.value = null;
+  navigateTo("/signIn");
+};
 
 const user = ref({
   name: "",
@@ -110,7 +124,7 @@ const user = ref({
       gap: 10px;
       flex: auto;
       align-items: flex-end;
-      justify-content: start;
+      justify-content: space-around;
       margin-bottom: 20px;
 
       .img-container {
@@ -119,6 +133,17 @@ const user = ref({
         .img {
           width: 40px;
           height: 40px;
+        }
+      }
+      span {
+        cursor: pointer;
+        color: #667085;
+      }
+      .log-container {
+        .logut {
+          margin-right: 50px;
+          cursor: pointer;
+          color: #667085;
         }
       }
     }
